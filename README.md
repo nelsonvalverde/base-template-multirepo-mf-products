@@ -1,27 +1,88 @@
-# MfProducts
+# MICROFRONT
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+## Crear Microfronts
 
-## Development server
+Comando> `ng new shell --standalone --routing`
+Comando> `ng new mf-dashboard --standalone --routing`
+Comando> `ng new mf-products --standalone --routing`
+Comando> `ng new mf-orders --standalone --routing`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Instalar "Module Federation"
 
-## Code scaffolding
+Se necesita instalar la librería "module-federation" en cada microfront
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Comando> `npm i @angular-architects/module-federation`
 
-## Build
+## Configurar los module Federation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Se necesita configurar el host (shell) y los microfront remotos (products y orders)
 
-## Running unit tests
+Micro front (shell)          Comando> `ng add @angular-architects/module-federation --project shell --port 4200 --type host`
+Micro front (mf-dashboard)   Comando> `ng add @angular-architects/module-federation --project mf-dashboard --port 4201 --type remote`
+Micro front (mf-products)    Comando> `ng add @angular-architects/module-federation --project mf-products --port 4202 --type remote`
+Micro front (mf-orders)      Comando> `ng add @angular-architects/module-federation --project mf-orders --port 4203 --type remote`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Configurar Webpacks
 
-## Running end-to-end tests
+### Micro front (mf-dashboard)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    Se necesita exponer los "routes" del microfront
 
-## Further help
+    `
+    //webpack.config.js
+        ..
+        exposes: {
+            './routes': './src/app/app.routes.ts',
+        },
+        ..
+    `
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Micro front (mf-products)
+
+    Se necesita exponer los "routes" del microfront
+
+    `
+    //webpack.config.js
+        ..
+        exposes: {
+            './routes': './src/app/app.routes.ts',
+        },
+        ..
+    `
+
+### Micro front (mf-orders)
+
+    Se necesita exponer los "routes" del microfront
+
+    `
+    //webpack.config.js
+        ..
+        exposes: {
+            './routes': './src/app/app.routes.ts',
+        },
+        ..
+    `
+
+### Host (shell)
+
+    1. Se necesita tipar todos los paths de configuración (EcmaScript Modules) referenciando al micro frontend
+
+        1.1 - Creamos un archivo 'decl.d.ts' en la carpeta raiz de "src"
+        1.2 - Editar el archivo 'decl.d.ts' y agregar lo siguiente
+        `
+            declare module 'mf-dashboard/*';
+            declare module 'mf-products/*';
+            declare module 'mf-orders/*';
+        `
+    
+    2. Se necesita especificar los mf fronts que están siendo expuestos para integrarlos remotamente en el host (shell)
+
+    `
+    //webpack.config.js
+        remotes: {
+            "mf-dashboard": "http://localhost:4201/remoteEntry.js",
+            "mf-products": "http://localhost:4202/remoteEntry.js",
+            "mf-orders": "http://localhost:4203/remoteEntry.js",
+        },
+        ..
+    `

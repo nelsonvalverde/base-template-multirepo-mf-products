@@ -1,0 +1,67 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+                "label": "run_mf-dashboard",
+                "type": "shell",
+                "command": "cmd.exe",
+                "args": ["/K", "cd ./mf-dashboard && npm run start"],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "group": "build",
+                "hide": true
+			},            
+			{
+                "label": "run_mf-orders",
+                "type": "shell",
+                "command": "cmd.exe",
+                "args": ["/K", "cd ./mf-orders && npm run start"],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "group": "build",
+                "hide": true
+			},
+			{
+                "label": "run_mf-products",
+                "type": "shell",
+                "command": "cmd.exe",
+                "args": ["/K", "cd ./mf-products && npm run start"],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "group": "build",
+                "hide": true
+			},
+			{
+                "label": "run_shell",
+                "type": "shell",
+                "command": "cmd.exe",
+                "args": ["/K", "cd ./shell && npm run start"],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "group": "build",
+                "hide": true
+			},
+			{
+                "label": "run_workspace",
+                "dependsOn": [
+                    "run_mf-dashboard",
+                    "run_mf-orders",
+                    "run_mf-products",
+                    "run_shell"
+                ],
+                "isBackground": true,
+                "problemMatcher": []
+            }
+		]
+	}
+}
