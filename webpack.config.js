@@ -2,7 +2,7 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 
 module.exports = withModuleFederationPlugin({
 
-  name: 'mf-products',
+  name: 'mf-auth',
 
   exposes: {
     './routes': './src/app/app.routes.ts',

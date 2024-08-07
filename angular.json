@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"mf-products": {
+		"mf-auth": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
@@ -17,7 +17,7 @@
 				"build": {
 					"builder": "ngx-build-plus:browser",
 					"options": {
-						"outputPath": "dist/mf-products",
+						"outputPath": "dist/mf-auth",
 						"index": "src/index.html",
 						"polyfills": [
 							"zone.js"
@@ -68,11 +68,11 @@
 					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"buildTarget": "mf-products:build:production",
+							"buildTarget": "mf-auth:build:production",
 							"extraWebpackConfig": "webpack.prod.config.js"
 						},
 						"development": {
-							"buildTarget": "mf-products:build:development"
+							"buildTarget": "mf-auth:build:development"
 						}
 					},
 					"defaultConfiguration": "development",

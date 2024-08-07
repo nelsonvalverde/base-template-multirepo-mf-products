@@ -1,5 +1,5 @@
 {
-  "name": "mf-products",
+  "name": "mf-auth",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
