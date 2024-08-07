@@ -7,22 +7,33 @@
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
-			{
-                "label": "run_mf-dashboard",
+            {
+                "label": "run_mf-auth",
                 "type": "shell",
                 "command": "cmd.exe",
-                "args": ["/K", "cd ./mf-dashboard && npm run start"],
+                "args": ["/K", "cd ./base-template-multirepo-mf-auth && npm run start"],
                 "problemMatcher": [
                     "$tsc"
                 ],
                 "group": "build",
                 "hide": true
-			},            
+			},
+			{
+                "label": "run_mf-dashboard",
+                "type": "shell",
+                "command": "cmd.exe",
+                "args": ["/K", "cd ./base-template-multirepo-mf-dashboard && npm run start"],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "group": "build",
+                "hide": true
+			},
 			{
                 "label": "run_mf-orders",
                 "type": "shell",
                 "command": "cmd.exe",
-                "args": ["/K", "cd ./mf-orders && npm run start"],
+                "args": ["/K", "cd ./base-template-multirepo-mf-orders && npm run start"],
                 "problemMatcher": [
                     "$tsc"
                 ],
@@ -33,7 +44,7 @@
                 "label": "run_mf-products",
                 "type": "shell",
                 "command": "cmd.exe",
-                "args": ["/K", "cd ./mf-products && npm run start"],
+                "args": ["/K", "cd ./base-template-multirepo-mf-products && npm run start"],
                 "problemMatcher": [
                     "$tsc"
                 ],
@@ -44,7 +55,7 @@
                 "label": "run_shell",
                 "type": "shell",
                 "command": "cmd.exe",
-                "args": ["/K", "cd ./shell && npm run start"],
+                "args": ["/K", "cd ./base-template-multirepo-shell && npm run start"],
                 "problemMatcher": [
                     "$tsc"
                 ],
