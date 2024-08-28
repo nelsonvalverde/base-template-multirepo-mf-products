@@ -31,7 +31,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'dist/mf-auth'
+    rootFolderOrFile: 'dist/mf-products'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'

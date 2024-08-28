@@ -17,7 +17,7 @@
 				"build": {
 					"builder": "ngx-build-plus:browser",
 					"options": {
-						"outputPath": "dist/mf-auth",
+						"outputPath": "dist/mf-products",
 						"index": "src/index.html",
 						"polyfills": [
 							"zone.js"
