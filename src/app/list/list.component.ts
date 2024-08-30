@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject, ChangeDetectorRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
@@ -19,36 +19,57 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Product } from '../shared/models/product.model';
 import { ProductService } from '../shared/services/product.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule],
+  imports: [
+    TableModule,
+    DialogModule,
+    RippleModule,
+    ButtonModule,
+    ToastModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    InputTextModule,
+    InputTextareaModule,
+    CommonModule,
+    FileUploadModule,
+    DropdownModule,
+    TagModule,
+    RadioButtonModule,
+    RatingModule,
+    FormsModule,
+    InputNumberModule,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ProductService, MessageService, ConfirmationService, HttpClient]
+  providers: [ProductService, MessageService, ConfirmationService,],
 })
 export class ListComponent implements OnInit {
   productDialog: boolean = false;
   products: Product[] = [];
   product?: Product | null;
-  selectedProducts!: Product[] | null;
+  selectedProducts: Product[] = [];
   submitted: boolean = false;
-  statuses!: any[];
+  statuses: { label: string, value: string }[] = [];
 
-  private readonly _productService = inject(ProductService);
-  private readonly _messageService = inject(MessageService);
-  private readonly _confirmationService = inject(ConfirmationService);
+  private _productService = inject(ProductService);
+  private _messageService = inject(MessageService);
+  private _confirmationService = inject(ConfirmationService);
+  private _cd = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
 
-    this._productService.getProducts().then((data) => (this.products = data));
+    this._productService.getProducts().then((data) => {
+      this.products = data;
+      this._cd.detectChanges();
+    });
 
     this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
+      { label: 'INSTOCK', value: 'INSTOCK' },
+      { label: 'LOWSTOCK', value: 'LOWSTOCK' },
+      { label: 'OUTOFSTOCK', value: 'OUTOFSTOCK' }
     ];
   }
 
@@ -64,7 +85,7 @@ export class ListComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
-        this.selectedProducts = null;
+        this.selectedProducts = [];
         this._messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
       }
     });
@@ -121,7 +142,6 @@ export class ListComponent implements OnInit {
         break;
       }
     }
-
     return index;
   }
 

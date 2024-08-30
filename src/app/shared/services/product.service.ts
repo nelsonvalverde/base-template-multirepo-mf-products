@@ -3,7 +3,28 @@ import { Product } from '../models/product.model';
 
 @Injectable()
 export class ProductService {
-  getProductsData(): Product[] {
+
+  getProductsMini(): Promise<Product[]> {
+    return Promise.resolve(this.getProductsData().slice(0, 5));
+  }
+
+  getProductsSmall(): Promise<Product[]> {
+    return Promise.resolve(this.getProductsData().slice(0, 10));
+  }
+
+  getProducts(): Promise<Product[]> {
+    return Promise.resolve(this.getProductsData());
+  }
+
+  getProductsWithOrdersSmall(): Promise<Product[]> {
+    return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
+  }
+
+  getProductsWithOrders(): Promise<Product[]> {
+    return Promise.resolve(this.getProductsWithOrdersData());
+  }
+
+  private getProductsData(): Product[] {
     return [
       {
         id: '1000',
@@ -368,7 +389,7 @@ export class ProductService {
     ];
   }
 
-  getProductsWithOrdersData(): Product[] {
+  private getProductsWithOrdersData(): Product[] {
     return [
       {
         id: '1000',
@@ -1202,23 +1223,4 @@ export class ProductService {
     ];
   }
 
-  getProductsMini(): Promise<Product[]> {
-    return Promise.resolve(this.getProductsData().slice(0, 5));
-  }
-
-  getProductsSmall(): Promise<Product[]> {
-    return Promise.resolve(this.getProductsData().slice(0, 10));
-  }
-
-  getProducts(): Promise<Product[]> {
-    return Promise.resolve(this.getProductsData());
-  }
-
-  getProductsWithOrdersSmall(): Promise<Product[]> {
-    return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
-  }
-
-  getProductsWithOrders(): Promise<Product[]> {
-    return Promise.resolve(this.getProductsWithOrdersData());
-  }
 };
