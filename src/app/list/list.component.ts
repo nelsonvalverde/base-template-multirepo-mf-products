@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
@@ -40,7 +40,6 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ProductService, MessageService, ConfirmationService, EditPresenter]
 })
 export class ListComponent implements OnInit {

@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { Product } from '../../shared/models/product.model';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
@@ -30,8 +29,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputNumberModule,
   ],
   templateUrl: './edit.component.html',
-  styleUrl: './edit.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './edit.component.scss'
 })
 export class EditComponent implements OnInit {
 
